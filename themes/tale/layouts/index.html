@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+<main>
+	{{ partial "index/introduction.html" . }}
+
+	<div class="catalogue">
+		
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") }}
+		{{ range $paginator.Pages }}
+			{{ .Render "summary" }}
+		{{ end }}
+	</div>
+
+	<div class="left">
+
+		<div class="pagination">
+			{{ if .Paginator.HasPrev }}
+				<a href="{{ .Paginator.Prev.URL }}" class="left arrow">&#x2B45; Future</a>
+			{{ end }}
+			{{ if .Paginator.HasNext }}
+				<a href="{{ .Paginator.Next.URL }}" class="right arrow">Past &#x2B46;</a>
+			{{ end }}
+
+			<span>{{ .Paginator.PageNumber }}</span>
+		</div>
+
+	</div>
+
+</main>
+
+{{ end }}
